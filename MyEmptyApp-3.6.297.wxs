@@ -1,0 +1,82 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    <Package Name="My Empty App" Language="1033"
+             Version="3.6.297"
+             Manufacturer="Wizzzard"
+             UpgradeCode="CAFEB1BA-1212-3434-5656-123456781234"
+             InstallerVersion="500"
+    >
+        <Launch Condition="VersionNT64" Message="This package is for 64-bit OS." />
+
+        <MajorUpgrade AllowSameVersionUpgrades="no"
+                      DowngradeErrorMessage="A newer version of [ProductName] is already installed."/>
+        <MediaTemplate EmbedCab="yes"/>
+
+        <Property Id="ARPNOREPAIR" Secure="yes" Value="yes"/>
+        <Property Id="ARPNOMODIFY" Secure="yes" Value="yes"/>
+
+        <Feature Id="Main" Level="1">
+            <ComponentGroupRef Id="ProductComponents"/>
+            <ComponentGroupRef Id="DesktopGroup"/>
+            <ComponentGroupRef Id="StartMenuGroup"/>
+        </Feature>
+    </Package>
+
+    <Fragment>
+        <StandardDirectory Id="DesktopFolder" />
+
+        <StandardDirectory Id="ProgramFiles64Folder">
+            <Directory Id="ProgramFilesSubFolder" Name="Wizzzard">
+                <Directory Id="INSTALLFOLDER" Name="MyEmptyApp">
+                </Directory>
+            </Directory>
+        </StandardDirectory>
+
+        <StandardDirectory Id="ProgramMenuFolder">
+            <Directory Id="StartMenuSubFolder" Name="Wizzzard"/>
+        </StandardDirectory>
+    </Fragment>
+
+    <Fragment>
+
+        <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+
+            <Component Id="cmpMyEmptyAppExe" Guid="CAFEB1BA-1212-2323-3434-111111111111">
+                <File Id="MyEmptyApp_exe" KeyPath="yes" Source="x64\Release\MyEmptyApp.exe"/>
+            </Component>
+
+        </ComponentGroup>
+
+    <ComponentGroup Id="DesktopGroup" Directory="DesktopFolder">
+      <Component Id="RegistryShortCut" Guid="CAFEB1BA-1212-2323-3434-222222222222">
+
+        <Shortcut Id="ApplicationDesktopShortcut"
+                Name="MyEmptyApp"
+                Description="My Empty App"
+                Target="[#MyEmptyApp_exe]"
+                WorkingDirectory="INSTALLFOLDER" />
+        <RemoveFolder Id="DesktopFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\Wizzzard\MyEmptyApp" Type="string" Value="" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+
+    <ComponentGroup Id="StartMenuGroup" Directory="StartMenuSubFolder">
+
+        <Component Id="ApplicationShortcut" Guid="CAFEB1BA-1212-2323-3434-333333333333">
+            <Shortcut Id="ApplicationStartMenuShortcut"
+                        Name="MyEmptyApp"
+                        Description="My Empty App"
+                        Target="[#MyEmptyApp_exe]"
+                        WorkingDirectory="INSTALLFOLDER"
+            >
+                <ShortcutProperty Key="System.AppUserModel.ID" Value="com.wizzzard.myemptyapp"/>
+                <ShortcutProperty Key="{9F4C2855-9F79-4B39-A8D0-E1D42DE1D5F3}, 26"
+                                    Value="{CAFEB1BA-1111-2222-3333-444444444444}"/>
+            </Shortcut>
+            <RemoveFolder Id="CleanUpShortCut" Directory="StartMenuSubFolder" On="uninstall"/>
+            <RegistryValue Root="HKCU" Key="Software\Wizzzard\MyEmptyApp" Type="string" Value="" KeyPath="yes" />
+        </Component>
+
+    </ComponentGroup>
+
+    </Fragment>
+</Wix>

@@ -1,0 +1,11 @@
+<Configuration>
+  <MappedFolders>
+    <MappedFolder>
+      <HostFolder>C:\dev\powerlauncher-bug\sandbox</HostFolder>
+      <SandboxFolder>C:\dev\hostfolder</SandboxFolder>
+    </MappedFolder>
+  </MappedFolders>
+  <LogonCommand>
+    <Command>C:\dev\hostfolder\sandbox-autorun.cmd</Command>
+  </LogonCommand>
+</Configuration>

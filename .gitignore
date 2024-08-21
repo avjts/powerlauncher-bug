@@ -5,3 +5,7 @@
 *.user
 /MyEmptyApp/x64/
 /x64/
+/sandbox/*.exe
+/sandbox/*.msi
+/sandbox/*.chm
+/sandbox/Eula.txt
